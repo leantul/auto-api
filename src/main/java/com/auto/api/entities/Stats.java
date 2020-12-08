@@ -3,9 +3,7 @@ package com.auto.api.entities;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonPropertyOrder({"count_car", "cars", "optionals"})
 public class Stats {
 
 	@JsonProperty(value = "count_car")
