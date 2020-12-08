@@ -1,14 +1,19 @@
 package com.auto.api.entities;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,10 +25,14 @@ public class Unit {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long unitID;
 
-	@Column(name="autoID")
-	private Long autoID;
+	@OneToOne
+	@JoinColumn(name="autoID")
+	private Auto auto;
 	
-	@OneToMany(mappedBy="additionalID")
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name="unit_additional",
+			   joinColumns = @JoinColumn(name="unitID"),
+			   inverseJoinColumns = @JoinColumn(name="additionalID"))
 	List<Additional> additionalList;
 	
 	@Column(name="price", nullable=false, scale = 2)
@@ -45,12 +54,12 @@ public class Unit {
 		this.unitID = unitID;
 	}
 	
-	public Long getAutoID() {
-		return autoID;
+	public Auto getAuto() {
+		return auto;
 	}
 	
-	public void setAutoID(Long autoID) {
-		this.autoID = autoID;
+	public void setAuto(Auto auto) {
+		this.auto = auto;
 	}
 	
 	public BigDecimal getPrice() {
@@ -59,5 +68,12 @@ public class Unit {
 	
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+	
+	public void addAdditional(Additional additional) {
+		if (additionalList == null) {
+			additionalList = new ArrayList<Additional>();
+		}
+		additionalList.add(additional);
 	}
 }

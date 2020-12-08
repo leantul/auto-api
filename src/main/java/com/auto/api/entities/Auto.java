@@ -28,6 +28,10 @@ public class Auto {
 		return autoID;
 	}
 	
+	public Long getAutoId(Auto auto) {
+		return auto.getAutoId();
+	}
+	
 	public void setAutoId(Long autoID) {
 		this.autoID = autoID;
 	}

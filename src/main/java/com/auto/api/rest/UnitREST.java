@@ -51,9 +51,20 @@ public class UnitREST {
 		}
 	}
 	
+	@RequestMapping(value="{unitId}/additional")
+	public ResponseEntity<List<Additional>> getAdditionalByUnitID(@PathVariable("unitId") Long unitId){
+		Optional<Unit> unit = unitDAO.findById(unitId);
+		if(unit.isPresent()) {
+			return ResponseEntity.ok(unit.get().getAdditionalList());			
+		} else {
+			return ResponseEntity.noContent().build();
+		}
+	}
+	
 	@PostMapping
 	public ResponseEntity<BigDecimal> createUnit(@RequestBody Unit unit){
 		unit.setPrice(this.calculatePrice(unit));
+		unit.setAdditionalList(unit.getAdditionalList());
 		Unit newUnit = unitDAO.save(unit);
 		return ResponseEntity.ok(newUnit.getPrice());
 	}
@@ -70,7 +81,7 @@ public class UnitREST {
 		Optional<Unit> optionalUnit = unitDAO.findById(unit.getUnitID());
 		if(optionalUnit.isPresent()) {
 			Unit updateUnit = optionalUnit.get();
-			updateUnit.setAutoID(unit.getAutoID());
+			updateUnit.setAuto(unit.getAuto());
 			updateUnit.setPrice(this.calculatePrice(unit));
 			unitDAO.save(updateUnit);
 			
@@ -82,7 +93,7 @@ public class UnitREST {
 	
 	private BigDecimal calculatePrice(Unit unit) {
 		// Price without any additional
-		Auto auto = autoDAO.findById(unit.getAutoID()).get();
+		Auto auto = autoDAO.findById(unit.getAuto().getAutoId()).get();
 		BigDecimal priceAuto = auto.getPrice();
 
 		// Price with all additional
