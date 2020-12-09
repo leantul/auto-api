@@ -27,7 +27,7 @@ public class AdditionalREST {
 	}
 	
 	@RequestMapping(value="{additionalId}")
-	public ResponseEntity<Optional<Additional>> getUnitByID(@PathVariable("additionalId") Long additionalId){
+	public ResponseEntity<Optional<Additional>> getAdditionalByID(@PathVariable("additionalId") Long additionalId){
 		Optional<Additional> additional = additionalDAO.findById(additionalId);
 		if(additional.isPresent()) {
 			return ResponseEntity.ok(additional);			

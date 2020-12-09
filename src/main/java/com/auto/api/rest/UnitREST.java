@@ -36,16 +36,16 @@ public class UnitREST {
 	private AdditionalDAO additionalDAO;
 	
 	@GetMapping
-	public ResponseEntity<List<Unit>> getAuto(){
+	public ResponseEntity<List<Unit>> getUnits(){
 		List<Unit> listUnit = unitDAO.findAll();
 		return ResponseEntity.ok(listUnit);
 	}
 	
 	@RequestMapping(value="{unitId}")
-	public ResponseEntity<Optional<Unit>> getUnitByID(@PathVariable("unitId") Long unitId){
+	public ResponseEntity<Unit> getUnitByID(@PathVariable("unitId") Long unitId){
 		Optional<Unit> unit = unitDAO.findById(unitId);
 		if(unit.isPresent()) {
-			return ResponseEntity.ok(unit);			
+			return ResponseEntity.ok(unit.get());			
 		} else {
 			return ResponseEntity.noContent().build();
 		}
