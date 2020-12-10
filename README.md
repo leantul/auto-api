@@ -31,7 +31,7 @@ API REST que permite crear, modificar, eliminar y listar automóviles de una fá
 
 ## Construido con 🛠️
 
-* [Maven](https://maven.apache.org/) - Manejador de dependencias
+* [Maven](https://maven.apache.org/) - Dependencias
 * [Spring](https://spring.io/) - Spring Framework
 * [Swagger](https://swagger.io/) - Documentación
 * [Heroku](https://heroku.com/) - Plataforma cloud
