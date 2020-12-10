@@ -18,7 +18,7 @@ API REST que permite crear, modificar, eliminar y listar automóviles de una fá
 ### Autos
 
 * [Listar autos](doc/listAutos.md) : `GET /auto/`
-* [Obtener un auto](doc/getUnit.md) : `GET /auto/{autoId}/`
+* [Obtener un auto](doc/getAuto.md) : `GET /auto/{autoId}/`
 
 ### Adicionales
 
